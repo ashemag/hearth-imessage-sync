@@ -51,7 +51,7 @@
     "afterSign": "scripts/notarize.js",
     "publish": {
       "provider": "github",
-      "owner": "hearth-ai",
+      "owner": "ashemag",
       "repo": "hearth-imessage-sync",
       "releaseType": "release"
     },
