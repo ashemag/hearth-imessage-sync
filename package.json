@@ -1,6 +1,6 @@
 {
   "name": "hearth-imessage-sync",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Sync iMessages to Hearth Rolodex",
   "main": "main.js",
   "scripts": {
@@ -42,7 +42,13 @@
         }
       ],
       "icon": "icon.icns",
-      "identity": null
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist",
+      "notarize": {
+        "teamId": "923SFRKG7N"
+      }
     },
     "publish": {
       "provider": "github",
