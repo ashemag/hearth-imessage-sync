@@ -42,11 +42,7 @@
         }
       ],
       "icon": "icon.icns",
-      "entitlements": "entitlements.mac.plist",
-      "entitlementsInherit": "entitlements.mac.plist",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "notarize": false
+      "identity": null
     },
     "publish": {
       "provider": "github",
