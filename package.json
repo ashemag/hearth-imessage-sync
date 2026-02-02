@@ -48,7 +48,6 @@
       "gatekeeperAssess": false,
       "notarize": false
     },
-    "afterSign": "scripts/notarize.js",
     "publish": {
       "provider": "github",
       "owner": "ashemag",
