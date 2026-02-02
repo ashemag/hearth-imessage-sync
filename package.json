@@ -1,6 +1,6 @@
 {
   "name": "hearth-imessage-sync",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Sync iMessages to Hearth Rolodex",
   "main": "main.js",
   "scripts": {
@@ -22,8 +22,8 @@
     "sql.js": "^1.10.0"
   },
   "build": {
-    "appId": "ai.hearth.imessage-sync",
-    "productName": "Hearth iMessage Sync",
+    "appId": "ai.hearth.app",
+    "productName": "Hearth",
     "icon": "icon.icns",
     "protocols": {
       "name": "Hearth Sync Protocol",
