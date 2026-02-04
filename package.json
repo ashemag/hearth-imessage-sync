@@ -1,6 +1,6 @@
 {
   "name": "hearth-imessage-sync",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Sync iMessages to Hearth Rolodex",
   "main": "main.js",
   "scripts": {
@@ -12,14 +12,14 @@
   "author": "Hearth",
   "license": "MIT",
   "devDependencies": {
-    "@electron/notarize": "^2.2.1",
-    "dotenv": "^16.3.1",
-    "electron": "^35.0.0-beta.1",
-    "electron-builder": "^24.9.1"
+    "@electron/notarize": "^2.5.0",
+    "dotenv": "^16.4.7",
+    "electron": "^40.0.0",
+    "electron-builder": "^26.0.0"
   },
   "dependencies": {
-    "electron-updater": "^6.1.7",
-    "sql.js": "^1.10.0"
+    "electron-updater": "^6.3.9",
+    "sql.js": "^1.12.0"
   },
   "build": {
     "appId": "ai.hearth.app",
@@ -31,14 +31,15 @@
     },
     "mac": {
       "category": "public.app-category.productivity",
+      "minimumSystemVersion": "12.0",
       "target": [
         {
           "target": "dmg",
-          "arch": ["x64", "arm64"]
+          "arch": ["universal"]
         },
         {
           "target": "zip",
-          "arch": ["x64", "arm64"]
+          "arch": ["universal"]
         }
       ],
       "icon": "icon.icns",
@@ -46,9 +47,7 @@
       "gatekeeperAssess": false,
       "entitlements": "entitlements.mac.plist",
       "entitlementsInherit": "entitlements.mac.plist",
-      "notarize": {
-        "teamId": "923SFRKG7N"
-      }
+      "notarize": true
     },
     "publish": {
       "provider": "github",
