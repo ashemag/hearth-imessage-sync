@@ -1,6 +1,6 @@
 {
   "name": "hearth-imessage-sync",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Sync iMessages to Hearth Rolodex",
   "main": "main.js",
   "scripts": {
