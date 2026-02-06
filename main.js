@@ -396,9 +396,9 @@ function getWebAppBaseUrl() {
     return 'https://labs.hearth.ai';
 }
 
-// Supabase configuration (public keys - safe to include)
-const SUPABASE_URL = 'https://pqlkkgtbvaegqqqnozvl.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_CuzgVaLWBQjcabA7v77jjQ_EzCyv--I';
+// Supabase configuration (public anon keys)
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://pqlkkgtbvaegqqqnozvl.supabase.co';
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_CuzgVaLWBQjcabA7v77jjQ_EzCyv--I';
 
 // Custom protocol for magic link redirect
 const PROTOCOL = 'hearth-sync';
@@ -563,7 +563,6 @@ let pendingProtocolUrl = null;
 // Handle the protocol URL (magic link callback)
 function handleProtocolUrl(url) {
     console.log('=== RECEIVED PROTOCOL URL ===');
-    console.log('URL:', url);
 
     try {
         const hashPart = url.split('#')[1];
@@ -735,6 +734,11 @@ app.whenReady().then(async () => {
         setTimeout(() => {
             autoUpdater.checkForUpdatesAndNotify();
         }, 3000);
+
+        // Check for updates every 24 hours
+        setInterval(() => {
+            autoUpdater.checkForUpdatesAndNotify();
+        }, 24 * 60 * 60 * 1000);
     }
 });
 
