@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://labs.hearth.ai http://localhost:3000 https://pqlkkgtbvaegqqqnozvl.supabase.co; frame-ancestors 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://labs.hearth.ai http://localhost:3000 https://pqlkkgtbvaegqqqnozvl.supabase.co; frame-ancestors 'none'">
     <title>Hearth iMessage Sync</title>
     <style>
         * {
@@ -593,31 +593,36 @@
 
         // Send magic link
         async function sendMagicLink() {
-            const email = $('email-input').value.trim();
+            try {
+                const email = $('email-input').value.trim();
 
-            if (!email) {
-                showAuthError('Please enter your email');
-                return;
+                if (!email) {
+                    showAuthError('Please enter your email');
+                    return;
+                }
+
+                $('send-link-btn').disabled = true;
+                $('send-link-btn').textContent = 'Sending...';
+                $('auth-error').classList.add('hidden');
+
+                const result = await window.hearthAPI.sendMagicLink({ email });
+
+                if (result.success) {
+                    pendingEmail = email;
+                    $('auth-form').classList.add('hidden');
+                    $('auth-waiting').classList.remove('hidden');
+                    $('auth-status-dot').className = 'status-dot syncing';
+                    $('auth-status-text').textContent = 'Check your email';
+                } else {
+                    showAuthError(result.error || 'Failed to send magic link');
+                }
+            } catch (err) {
+                console.error('sendMagicLink error:', err);
+                showAuthError(err.message || 'Failed to send magic link');
+            } finally {
+                $('send-link-btn').disabled = false;
+                $('send-link-btn').textContent = 'Send Magic Link';
             }
-
-            $('send-link-btn').disabled = true;
-            $('send-link-btn').textContent = 'Sending...';
-            $('auth-error').classList.add('hidden');
-
-            const result = await window.hearthAPI.sendMagicLink({ email });
-
-            if (result.success) {
-                pendingEmail = email;
-                $('auth-form').classList.add('hidden');
-                $('auth-waiting').classList.remove('hidden');
-                $('auth-status-dot').className = 'status-dot syncing';
-                $('auth-status-text').textContent = 'Check your email';
-            } else {
-                showAuthError(result.error || 'Failed to send magic link');
-            }
-
-            $('send-link-btn').disabled = false;
-            $('send-link-btn').textContent = 'Send Magic Link';
         }
 
         $('send-link-btn').addEventListener('click', sendMagicLink);

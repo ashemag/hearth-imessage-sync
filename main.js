@@ -776,9 +776,16 @@ ipcMain.handle('check-disk-access', async () => {
     }
 });
 
-// Open System Preferences for Full Disk Access
+// Open System Settings for Full Disk Access
 ipcMain.handle('open-disk-access-settings', async () => {
-    shell.openExternal('x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles');
+    // macOS Tahoe (26+) uses the new extension URL scheme
+    const majorVersion = parseInt(os.release().split('.')[0], 10);
+    // Darwin 25 = macOS 26 (Tahoe)
+    if (majorVersion >= 25) {
+        shell.openExternal('x-apple.systempreferences:com.apple.settings.PrivacySecurity.extension?Privacy_AllFiles');
+    } else {
+        shell.openExternal('x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles');
+    }
 });
 
 // Send magic link email
